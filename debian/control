@@ -3,16 +3,18 @@ Section: libs
 Priority: optional
 Maintainer: Debian PhotoTools Maintainers <pkg-phototools-devel@lists.alioth.debian.org>
 Uploaders: Matteo F. Vescovi <mfv@debian.org>
-Build-Depends: cmake,
-               debhelper-compat (= 13),
-               dh-python,
-               doxygen,
-               libboost-python-dev,
-               pkg-config,
-               python3-breathe,
-               python3-dev:any,
-               python3-numpy,
-               python3-sphinx
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ dh-python,
+ doxygen,
+ libboost-python-dev,
+ pkg-config,
+ python3-breathe,
+ python3-dev:any,
+ python3-numpy,
+ python3-sphinx,
+ python3-sphinx-press-theme
 Standards-Version: 4.6.2
 Rules-Requires-Root: no
 Homepage: https://www.openexr.com
@@ -22,8 +24,11 @@ Vcs-Browser: https://salsa.debian.org/debian-phototools-team/imath
 Package: libimath-3-1-29
 Architecture: any
 Multi-Arch: same
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Pre-Depends:
+ ${misc:Pre-Depends}
 Description: Utility libraries from ASF used by OpenEXR - runtime
  Imath is a basic, light-weight, and efficient C++ representation of
  2D and 3D vectors and matrices and other simple but useful
@@ -37,16 +42,22 @@ Description: Utility libraries from ASF used by OpenEXR - runtime
  This package provides the runtime libraries.
 
 Package: libimath-dev
+Section: libdevel
 Architecture: any
 Multi-Arch: same
-Section: libdevel
-Depends: libimath-3-1-29 (= ${binary:Version}),
-         ${misc:Depends},
-         ${shlibs:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Conflicts: libilmbase-dev
-Provides: libilmbase-dev
-Replaces: libilmbase-dev
+Depends:
+ libimath-3-1-29 (= ${binary:Version}),
+ python3-imath,
+ ${misc:Depends},
+ ${shlibs:Depends}
+Pre-Depends:
+ ${misc:Pre-Depends}
+Conflicts:
+ libilmbase-dev
+Provides:
+ libilmbase-dev
+Replaces:
+ libilmbase-dev
 Description: Utility libraries from ASF used by OpenEXR - development
  Imath is a basic, light-weight, and efficient C++ representation of
  2D and 3D vectors and matrices and other simple but useful
@@ -63,7 +74,10 @@ Package: libimath-doc
 Section: doc
 Architecture: all
 Multi-Arch: foreign
-Depends: libjs-jquery, sphinx-common, ${misc:Depends}
+Depends:
+ libjs-jquery,
+ sphinx-common,
+ ${misc:Depends}
 Description: Utility libraries from ASF used by OpenEXR - documentation
  Imath is a basic, light-weight, and efficient C++ representation of
  2D and 3D vectors and matrices and other simple but useful
@@ -80,8 +94,12 @@ Package: python3-imath
 Section: python
 Architecture: any
 Multi-Arch: same
-Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
-Provides: ${python3:Provides}
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ ${shlibs:Depends}
+Provides:
+ ${python3:Provides}
 Description: Utility libraries from ASF used by OpenEXR - Python bindings
  Imath is a basic, light-weight, and efficient C++ representation of
  2D and 3D vectors and matrices and other simple but useful

@@ -1,3 +1,23 @@
+imath (3.1.9-3) unstable; urgency=medium
+
+  * debian/control: add python3-imath as dep to -dev
+    (Closes: #1050349)
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Mon, 04 Sep 2023 14:11:55 +0200
+
+imath (3.1.9-2) unstable; urgency=medium
+
+  * debian/rules: drop tests compilation
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Sat, 19 Aug 2023 13:57:55 +0200
+
+imath (3.1.9-1) unstable; urgency=medium
+
+  * New upstream release (Closes: #1042171)
+  * debian/: massive packaging simplification
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Sat, 19 Aug 2023 00:24:19 +0200
+
 imath (3.1.6-1) unstable; urgency=medium
 
   * New upstream release

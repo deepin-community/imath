@@ -8,6 +8,7 @@
 #define BOOST_PYTHON_MAX_ARITY 17
 
 #include <Python.h>
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include <boost/python.hpp>
 #include <boost/python/make_constructor.hpp>
 #include <boost/format.hpp>
@@ -336,8 +337,7 @@ static const Matrix22<T> &
 setScaleSc22(Matrix22<T> &mat, const T &s)
 {
     MATH_EXC_ON;
-    Vec2<T> sVec(s, s);
-    return mat.setScale(sVec);
+    return mat.setScale(s);
 }
 
 template <class T>
