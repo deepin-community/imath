@@ -8,6 +8,7 @@
 #define BOOST_PYTHON_MAX_ARITY 17
 
 #include <Python.h>
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include <boost/python.hpp>
 #include <boost/python/make_constructor.hpp>
 #include <boost/format.hpp>
@@ -522,8 +523,7 @@ static const Matrix44<T> &
 setScaleSc44(Matrix44<T> &mat, const T &s)
 {
     MATH_EXC_ON;
-    Vec3<T> sVec(s, s, s);
-    return mat.setScale(sVec);
+    return mat.setScale(s);
 }
 
 template <class T>
@@ -558,8 +558,7 @@ static const Matrix44<T> &
 setShearV44(Matrix44<T> &mat, const Vec3<T> &sVec)
 {
     MATH_EXC_ON;
-    IMATH_NAMESPACE::Shear6<T> shear(sVec[0], sVec[1], sVec[2], T (0), T (0), T (0));
-    return mat.setShear(shear);
+    return mat.setShear(sVec);
 }
 
 template <class T>
@@ -581,9 +580,8 @@ setShear44Tuple(Matrix44<T> &mat, const tuple &t)
         s.x = extract<T>(t[0]);
         s.y = extract<T>(t[1]);
         s.z = extract<T>(t[2]);
-        Shear6<T> shear(s);
         
-        return mat.setShear(shear);
+        return mat.setShear(s);
     }
     else if(t.attr("__len__")() == 6)
     {
@@ -1187,7 +1185,7 @@ M44Array_constructor(const FixedArray<T> &a, const FixedArray<T> &b, const Fixed
                      const FixedArray<T> &m, const FixedArray<T> &n, const FixedArray<T> &o, const FixedArray<T> &p)
 {
     MATH_EXC_ON;
-    size_t len = a.len();
+    Py_ssize_t len = a.len();
     if (!( a.len() == len && b.len() == len && c.len() == len && d.len() == len && 
             e.len() == len && f.len() == len && g.len() == len && h.len() == len && 
             i.len() == len && j.len() == len && k.len() == len && l.len() == len && 

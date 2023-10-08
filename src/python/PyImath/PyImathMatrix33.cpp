@@ -8,6 +8,7 @@
 #define BOOST_PYTHON_MAX_ARITY 17
 
 #include <Python.h>
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include <boost/python.hpp>
 #include <boost/python/make_constructor.hpp>
 #include <boost/format.hpp>
@@ -462,8 +463,7 @@ static const Matrix33<T> &
 setScaleSc33(Matrix33<T> &mat, const T &s)
 {
     MATH_EXC_ON;
-    Vec2<T> sVec(s, s);
-    return mat.setScale(sVec);
+    return mat.setScale(s);
 }
 
 template <class T>
@@ -1093,7 +1093,7 @@ M33Array_constructor(const FixedArray<T> &a, const FixedArray<T> &b, const Fixed
                      const FixedArray<T> &g, const FixedArray<T> &h, const FixedArray<T> &i)
 {
     MATH_EXC_ON;
-    size_t len = a.len();
+    Py_ssize_t len = a.len();
     if (!( a.len() == len && b.len() == len && c.len() == len && 
            d.len() == len && e.len() == len && f.len() == len && 
            g.len() == len && h.len() == len && i.len() == len))

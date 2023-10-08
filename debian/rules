@@ -1,7 +1,5 @@
 #! /usr/bin/make -f
 
-include /usr/share/dpkg/default.mk
-
 export DH_OPTIONS
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
@@ -10,7 +8,6 @@ INSTDIR = debian/tmp
 %:
 	dh $@ -Bbuild -Scmake --with python3
 
-# deduce documentation option (build-indep target)
 ifeq "" "$(filter %-doc,$(shell dh_listpackages))"
   BUILDDOC = OFF
 else
@@ -19,28 +16,21 @@ endif
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		-DDOCS=$(BUILDDOC) \
+		-DBUILD_DOCS=$(BUILDDOC) \
 		-DCMAKE_BUILD_RPATH_USE_ORIGIN=ON \
 		-DPYTHON=ON
-
-# https://github.com/AcademySoftwareFoundation/Imath/issues/226
-override_dh_auto_test-arch:
-	dh_auto_test || true
 
 override_dh_auto_build-indep:
 	dh_auto_build -- docs
 
-# No tests needed for docs
-override_dh_auto_test-indep:
-
 override_dh_auto_install-indep:
-	# Since compat/13 only files for indep should installed:
 	dh_auto_install -- -C docs
 
-pkg_lib = libimath-3-1-29
-pkg_dev = libimath-dev
-pkg_doc = libimath-doc
-pkg_py  = python3-imath
+override_dh_auto_test:
+
+override_dh_install-arch:
+	dh_numpy3 --package=python3-imath
+	dh_install
 
 override_dh_install-indep:
 	rm -f $(INSTDIR)/usr/share/doc/Imath/sphinx/_static/doctools.js
@@ -50,22 +40,4 @@ override_dh_install-indep:
 	rm -f $(INSTDIR)/usr/share/doc/Imath/sphinx/_static/underscore.js
 	rm -f $(INSTDIR)/usr/share/doc/Imath/sphinx/.buildinfo
 	rm -rf $(INSTDIR)/usr/share/doc/Imath/sphinx/.doctrees
-	dh_install -p$(pkg_doc) usr/share/doc/Imath/sphinx/* usr/share/doc/libimath-doc/html
-
-override_dh_install-arch:
-	# See #1004067
-	sed -i -e "s/FATAL_ERROR/STATUS/g" debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/cmake/Imath/ImathConfig.cmake
-	sed -i -e "s/FATAL_ERROR/STATUS/g" debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/cmake/Imath/ImathTargets.cmake
-	dh_numpy3 --package=$(pkg_py)
-	dh_install -p$(pkg_lib) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libImath-3_1.so.29.5.0
-	dh_install -p$(pkg_lib) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libImath-3_1.so.29
-	dh_install -p$(pkg_dev) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libImath-3_1.so
-	dh_install -p$(pkg_dev) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libImath.so
-	dh_install -p$(pkg_dev) debian/tmp/usr/include
-	dh_install -p$(pkg_dev) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/cmake/
-	dh_install -p$(pkg_dev) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/
-	dh_install -p$(pkg_py)  debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libPyImath_Python3_*-3_1.so
-	dh_install -p$(pkg_py)  debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libPyImath_Python3_*-3_1.so.29
-	dh_install -p$(pkg_py)  debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libPyImath_Python3_*-3_1.so.29.5.0
-	dh_install -p$(pkg_py)  debian/tmp/usr/lib/python3/dist-packages/imath.so
-	dh_install -p$(pkg_py)  debian/tmp/usr/lib/python3/dist-packages/imathnumpy.so
+	dh_install
