@@ -1,3 +1,38 @@
+imath (3.1.11-2) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Mon, 17 Jun 2024 20:52:03 +0200
+
+imath (3.1.11-1) experimental; urgency=medium
+
+  * New upstream release
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Wed, 24 Apr 2024 20:50:36 +0200
+
+imath (3.1.10-1) experimental; urgency=medium
+
+  * New upstream release
+    - debian/patches/: patchset updated
+      - 0001-Re-enable_documentation_installation.patch added
+  * debian/control:
+    - python3-imath b-dep dropped for libimath-dev
+      (Closes: #1061327)
+    - Python3 b-deps fixed for documentation generation
+      (Closes: #1060843)
+    - pkg-config -> pkgconf switch
+  * debian/rules: 'docs' -> 'website' renaming
+  * debian/libimath-doc.examples: 'docs' -> 'website' renaming
+
+ -- Matteo F. Vescovi <mfv@debian.org>  Mon, 19 Feb 2024 21:21:24 +0100
+
+imath (3.1.9-3.1) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename libraries for 64-bit time_t transition.
+
+ -- Steve Langasek <vorlon@debian.org>  Sat, 17 Feb 2024 17:03:43 +0000
+
 imath (3.1.9-3) unstable; urgency=medium
 
   * debian/control: add python3-imath as dep to -dev
