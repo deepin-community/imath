@@ -21,10 +21,7 @@ Homepage: https://www.openexr.com
 Vcs-Git: https://salsa.debian.org/debian-phototools-team/imath.git
 Vcs-Browser: https://salsa.debian.org/debian-phototools-team/imath
 
-Package: libimath-3-1-29t64
-Provides: ${t64:Provides}
-Replaces: libimath-3-1-29
-Breaks: libimath-3-1-29 (<< ${source:Version})
+Package: libimath-3-1-29
 Architecture: any
 Multi-Arch: same
 Depends:
@@ -49,7 +46,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
- libimath-3-1-29t64 (= ${binary:Version}),
+ libimath-3-1-29 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends}
 Pre-Depends:

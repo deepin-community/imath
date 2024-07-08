@@ -1,3 +1,9 @@
+imath (3.1.11-2deepin1) unstable; urgency=medium
+
+  * Revert 64-bit time_t changes.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Mon, 08 Jul 2024 12:56:14 +0200
+
 imath (3.1.11-2) unstable; urgency=medium
 
   * Upload to unstable
