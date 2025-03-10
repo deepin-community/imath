@@ -9,22 +9,22 @@ INSTDIR = debian/tmp
 	dh $@ -Bbuild -Scmake --with python3
 
 ifeq "" "$(filter %-doc,$(shell dh_listpackages))"
-  BUILDDOC = OFF
+  WEBSITE = OFF
 else
-  BUILDDOC = ON
+  WEBSITE = ON
 endif
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		-DBUILD_DOCS=$(BUILDDOC) \
+		-DBUILD_WEBSITE=$(WEBSITE) \
 		-DCMAKE_BUILD_RPATH_USE_ORIGIN=ON \
 		-DPYTHON=ON
 
 override_dh_auto_build-indep:
-	dh_auto_build -- docs
+	dh_auto_build -- website
 
 override_dh_auto_install-indep:
-	dh_auto_install -- -C docs
+	dh_auto_install -- -C website
 
 override_dh_auto_test:
 

@@ -1,0 +1,36 @@
+From: "Matteo F. Vescovi" <mfv@debian.org>
+Date: Mon, 19 Feb 2024 20:41:56 +0100
+Forwarded: not-needed
+Subject: Re-enable_documentation_installation
+
+---
+ CMakeLists.txt         | 1 +
+ website/CMakeLists.txt | 6 ++++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 823eea0..d5132f0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -75,6 +75,7 @@ endif()
+ 
+ option(BUILD_WEBSITE "Set ON to build the readthedocs website source")
+ if (BUILD_WEBSITE AND NOT IMATH_IS_SUBPROJECT)
++  option(INSTALL_WEBSITE "Set ON to install html documentation" ON)
+   add_subdirectory(website)
+ endif()
+ 
+diff --git a/website/CMakeLists.txt b/website/CMakeLists.txt
+index 8e2c320..31bec80 100644
+--- a/website/CMakeLists.txt
++++ b/website/CMakeLists.txt
+@@ -40,3 +40,9 @@ add_custom_command(OUTPUT ${SPHINX_INDEX_FILE}
+ 
+ add_custom_target(website ALL DEPENDS ${SPHINX_INDEX_FILE} ${DOXYGEN_INDEX_FILE})
+ 
++# Add an install target to install the docs
++if(INSTALL_WEBSITE)
++    include(GNUInstallDirs)
++    install(DIRECTORY ${SPHINX_BUILD}
++    DESTINATION ${CMAKE_INSTALL_DOCDIR})
++endif()
