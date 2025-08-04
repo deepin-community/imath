@@ -1,3 +1,9 @@
+imath (3.1.12-1deepin2) unstable; urgency=medium
+
+  * revert 64-bit time_t transition patch.
+
+ -- lichenggang <lichenggang@deepin.org>  Mon, 04 Aug 2025 15:35:44 +0800
+
 imath (3.1.12-1) unstable; urgency=medium
 
   * New upstream release
