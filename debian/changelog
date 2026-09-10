@@ -1,3 +1,9 @@
+imath (3.1.12-1deepin3) unstable; urgency=medium
+
+  * Rebuild with LTO enabled (dpkg vendor feature optimize/lto).
+
+ -- tunaichao <tunaichao@uniontech.com>  Thu, 10 Sep 2026 17:38:25 +0800
+
 imath (3.1.12-1deepin2) unstable; urgency=medium
 
   * revert 64-bit time_t transition patch.
